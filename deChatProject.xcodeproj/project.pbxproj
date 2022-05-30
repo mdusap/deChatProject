@@ -7,23 +7,45 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		350E6EF02845491400222361 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350E6EEF2845491400222361 /* SettingsTableViewController.swift */; };
+		350E6EF228455C6E00222361 /* NotesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350E6EF128455C6E00222361 /* NotesTableViewController.swift */; };
+		350E6EF628455CBC00222361 /* NotesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350E6EF428455CBC00222361 /* NotesTableViewCell.swift */; };
+		350E6EF728455CBC00222361 /* NotesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 350E6EF528455CBC00222361 /* NotesTableViewCell.xib */; };
 		3570BA1D2842698200F91FA8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3570BA1C2842698200F91FA8 /* AppDelegate.swift */; };
 		3570BA1F2842698200F91FA8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3570BA1E2842698200F91FA8 /* SceneDelegate.swift */; };
-		3570BA212842698200F91FA8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3570BA202842698200F91FA8 /* ViewController.swift */; };
+		3570BA212842698200F91FA8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3570BA202842698200F91FA8 /* LoginViewController.swift */; };
 		3570BA242842698200F91FA8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3570BA222842698200F91FA8 /* Main.storyboard */; };
 		3570BA262842698300F91FA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3570BA252842698300F91FA8 /* Assets.xcassets */; };
 		3570BA292842698300F91FA8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3570BA272842698300F91FA8 /* LaunchScreen.storyboard */; };
+		3570BA3128426C5600F91FA8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3570BA3028426C5500F91FA8 /* GoogleService-Info.plist */; };
+		3570BA34284275C300F91FA8 /* FCollectionReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3570BA33284275C300F91FA8 /* FCollectionReference.swift */; };
+		3570BA362842766100F91FA8 /* FirebaseUserListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3570BA352842766100F91FA8 /* FirebaseUserListener.swift */; };
+		3570BA39284277C200F91FA8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3570BA38284277C200F91FA8 /* User.swift */; };
+		3570BA3C2842780B00F91FA8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3570BA3B2842780B00F91FA8 /* Constants.swift */; };
+		C5ED3D5D7FC270288681A68B /* Pods_deChatProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 432BBF57CDBA361489E27DE7 /* Pods_deChatProject.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		350E6EEF2845491400222361 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		350E6EF128455C6E00222361 /* NotesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesTableViewController.swift; sourceTree = "<group>"; };
+		350E6EF428455CBC00222361 /* NotesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesTableViewCell.swift; sourceTree = "<group>"; };
+		350E6EF528455CBC00222361 /* NotesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotesTableViewCell.xib; sourceTree = "<group>"; };
 		3570BA192842698200F91FA8 /* deChatProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = deChatProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3570BA1C2842698200F91FA8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3570BA1E2842698200F91FA8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		3570BA202842698200F91FA8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3570BA202842698200F91FA8 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		3570BA232842698200F91FA8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3570BA252842698300F91FA8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3570BA282842698300F91FA8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3570BA2A2842698300F91FA8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3570BA3028426C5500F91FA8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		3570BA33284275C300F91FA8 /* FCollectionReference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCollectionReference.swift; sourceTree = "<group>"; };
+		3570BA352842766100F91FA8 /* FirebaseUserListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseUserListener.swift; sourceTree = "<group>"; };
+		3570BA38284277C200F91FA8 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		3570BA3B2842780B00F91FA8 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		432BBF57CDBA361489E27DE7 /* Pods_deChatProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_deChatProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A624D055C76C893D8B9E3602 /* Pods-deChatProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-deChatProject.debug.xcconfig"; path = "Target Support Files/Pods-deChatProject/Pods-deChatProject.debug.xcconfig"; sourceTree = "<group>"; };
+		D33224FEFA9CC596CA0E11F2 /* Pods-deChatProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-deChatProject.release.xcconfig"; path = "Target Support Files/Pods-deChatProject/Pods-deChatProject.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +53,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5ED3D5D7FC270288681A68B /* Pods_deChatProject.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		350E6EF328455C9900222361 /* Notes */ = {
+			isa = PBXGroup;
+			children = (
+				350E6EF828455CC600222361 /* Cell */,
+				350E6EF128455C6E00222361 /* NotesTableViewController.swift */,
+			);
+			path = Notes;
+			sourceTree = "<group>";
+		};
+		350E6EF828455CC600222361 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				350E6EF428455CBC00222361 /* NotesTableViewCell.swift */,
+				350E6EF528455CBC00222361 /* NotesTableViewCell.xib */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		3570BA102842698200F91FA8 = {
 			isa = PBXGroup;
 			children = (
 				3570BA1B2842698200F91FA8 /* deChatProject */,
 				3570BA1A2842698200F91FA8 /* Products */,
+				F180CA34874FB38EBD7E163A /* Pods */,
+				C872B624759730BD7D2053C9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,15 +99,63 @@
 		3570BA1B2842698200F91FA8 /* deChatProject */ = {
 			isa = PBXGroup;
 			children = (
+				3570BA3A2842780100F91FA8 /* Helpers */,
+				3570BA37284277B800F91FA8 /* Model */,
+				3570BA32284275AF00F91FA8 /* FirebaseHelpers */,
+				350E6EF328455C9900222361 /* Notes */,
 				3570BA1C2842698200F91FA8 /* AppDelegate.swift */,
 				3570BA1E2842698200F91FA8 /* SceneDelegate.swift */,
-				3570BA202842698200F91FA8 /* ViewController.swift */,
+				3570BA202842698200F91FA8 /* LoginViewController.swift */,
+				350E6EEF2845491400222361 /* SettingsTableViewController.swift */,
 				3570BA222842698200F91FA8 /* Main.storyboard */,
 				3570BA252842698300F91FA8 /* Assets.xcassets */,
 				3570BA272842698300F91FA8 /* LaunchScreen.storyboard */,
 				3570BA2A2842698300F91FA8 /* Info.plist */,
+				3570BA3028426C5500F91FA8 /* GoogleService-Info.plist */,
 			);
 			path = deChatProject;
+			sourceTree = "<group>";
+		};
+		3570BA32284275AF00F91FA8 /* FirebaseHelpers */ = {
+			isa = PBXGroup;
+			children = (
+				3570BA352842766100F91FA8 /* FirebaseUserListener.swift */,
+				3570BA33284275C300F91FA8 /* FCollectionReference.swift */,
+			);
+			path = FirebaseHelpers;
+			sourceTree = "<group>";
+		};
+		3570BA37284277B800F91FA8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3570BA38284277C200F91FA8 /* User.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		3570BA3A2842780100F91FA8 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				3570BA3B2842780B00F91FA8 /* Constants.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		C872B624759730BD7D2053C9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				432BBF57CDBA361489E27DE7 /* Pods_deChatProject.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F180CA34874FB38EBD7E163A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A624D055C76C893D8B9E3602 /* Pods-deChatProject.debug.xcconfig */,
+				D33224FEFA9CC596CA0E11F2 /* Pods-deChatProject.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +165,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3570BA2D2842698300F91FA8 /* Build configuration list for PBXNativeTarget "deChatProject" */;
 			buildPhases = (
+				7754E6B088A20FDD8AB9498B /* [CP] Check Pods Manifest.lock */,
 				3570BA152842698200F91FA8 /* Sources */,
 				3570BA162842698200F91FA8 /* Frameworks */,
 				3570BA172842698200F91FA8 /* Resources */,
+				2D47E7A6BD3F4320EC636131 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -125,7 +218,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				350E6EF728455CBC00222361 /* NotesTableViewCell.xib in Resources */,
 				3570BA292842698300F91FA8 /* LaunchScreen.storyboard in Resources */,
+				3570BA3128426C5600F91FA8 /* GoogleService-Info.plist in Resources */,
 				3570BA262842698300F91FA8 /* Assets.xcassets in Resources */,
 				3570BA242842698200F91FA8 /* Main.storyboard in Resources */,
 			);
@@ -133,14 +228,63 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		2D47E7A6BD3F4320EC636131 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-deChatProject/Pods-deChatProject-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-deChatProject/Pods-deChatProject-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-deChatProject/Pods-deChatProject-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7754E6B088A20FDD8AB9498B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-deChatProject-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		3570BA152842698200F91FA8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3570BA212842698200F91FA8 /* ViewController.swift in Sources */,
+				3570BA212842698200F91FA8 /* LoginViewController.swift in Sources */,
 				3570BA1D2842698200F91FA8 /* AppDelegate.swift in Sources */,
+				350E6EF228455C6E00222361 /* NotesTableViewController.swift in Sources */,
+				3570BA39284277C200F91FA8 /* User.swift in Sources */,
+				3570BA34284275C300F91FA8 /* FCollectionReference.swift in Sources */,
+				350E6EF02845491400222361 /* SettingsTableViewController.swift in Sources */,
+				3570BA3C2842780B00F91FA8 /* Constants.swift in Sources */,
+				350E6EF628455CBC00222361 /* NotesTableViewCell.swift in Sources */,
 				3570BA1F2842698200F91FA8 /* SceneDelegate.swift in Sources */,
+				3570BA362842766100F91FA8 /* FirebaseUserListener.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,6 +426,7 @@
 		};
 		3570BA2E2842698300F91FA8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A624D055C76C893D8B9E3602 /* Pods-deChatProject.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -310,6 +455,7 @@
 		};
 		3570BA2F2842698300F91FA8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D33224FEFA9CC596CA0E11F2 /* Pods-deChatProject.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
