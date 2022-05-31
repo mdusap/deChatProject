@@ -9,24 +9,28 @@ import UIKit
 
 class NotesTableViewController: UITableViewController {
     
+    //MARK: - IBOutlets
     @IBOutlet var table: UITableView!
-    //Array for the items that will display on the table view
+
+    
+    //MARK: - Vars
     var items = [String]()
-    //Text Field for when user edits an item
+    
+    //MARK: - Text Field
     var textForUpdate: UITextField?
     
+    //MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        //This line registers the cell created for the table
+        
+        // Register Cell
         table.register(UINib(nibName: "NotesTableViewCell", bundle: nil), forCellReuseIdentifier: "cell")
-        
         self.items = UserDefaults.standard.stringArray(forKey: "items") ?? []
-        
-        //Adding a button at the navigation bar
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAdd))
     }
     
-    //Function for the action of tapping that navigation bar button
+
+    //MARK: - Action
     @objc private func didTapAdd(){
         
         //UIAlertController is an object that displays an alert message to the user.
@@ -70,16 +74,14 @@ class NotesTableViewController: UITableViewController {
     }
 }
 
+//MARK: - Extension
+
 extension NotesTableViewController {
-    
-    //MARK: NumberOfRowsInSection
     
     //Obligatory functions of the table, the number of rows it has to have and the cells
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
     }
-    
-    //MARK: CellForRowAt
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = table.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
@@ -90,13 +92,9 @@ extension NotesTableViewController {
         return cell
     }
     
-    //MARK: EditingStyleForRowAt
-    
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return .delete
     }
-    
-    //MARK: Commit EditingStyle
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete{
@@ -117,8 +115,6 @@ extension NotesTableViewController {
             tableView.endUpdates()
         }
     }
-    
-    //MARK: didSelectRowAt
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         

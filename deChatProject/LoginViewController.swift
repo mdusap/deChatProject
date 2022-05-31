@@ -179,7 +179,7 @@ class LoginViewController: UIViewController {
             }
             
         } else {
-            ProgressHUD.showFailed("Whoops, sorry but the passwords don´t match :(")
+            ProgressHUD.showFailed("Sorry but passwords don´t match :(")
         }
     }
     

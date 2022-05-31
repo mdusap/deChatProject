@@ -41,6 +41,16 @@ class SettingsTableViewController: UITableViewController {
         return section == 0 ? 0.0 : 10.0
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        if indexPath.section == 0 && indexPath.row == 0 {
+            performSegue(withIdentifier: "settingsToEditProfile", sender: self)
+        }
+        
+    }
+    
     //MARK: - IBActions
     @IBAction func TellAFriendButtonPressed(_ sender: Any) {
        
@@ -77,13 +87,12 @@ class SettingsTableViewController: UITableViewController {
             
             if user.avatarLink != ""{
                 // Download and set avatar image
-                
+                FileStorage.downloadImage(imageUrl: user.avatarLink) { avatarImage in
+                    self.avatarImage.image = avatarImage?.circleMasked
+                }
             }
         }
     }
-    
-    
-
 }
 
 //MARK: -Extensions
