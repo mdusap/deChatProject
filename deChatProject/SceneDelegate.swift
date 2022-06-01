@@ -50,7 +50,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     //MARK: - Autologin
-    // Keep login data, if we close app, be able when enter again to save data and don´t have to log in again.
+    // Mantener los datos del logueo, para que al salir de la app no tener que hacer login todo el rato
     func autoLogin() {
         
         authListener = Auth.auth().addStateDidChangeListener({ (auth, user) in
@@ -66,7 +66,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         })
     }
 
-    // Go to Main View
+    // Ir al main view
     private func goToApp() {
         
         let mainView = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(identifier: "MainView") as! UITabBarController

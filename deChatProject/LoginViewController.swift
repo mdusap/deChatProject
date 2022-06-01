@@ -4,6 +4,8 @@
 //
 //  Created by Dusa, Maria Paula on 28/5/22.
 //
+//      Esta clase es la clase principal. 
+//
 
 import UIKit
 import Firebase

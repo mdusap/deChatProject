@@ -4,6 +4,8 @@
 //
 //  Created by Dusa, Maria Paula on 30/5/22.
 //
+//      Esta clase es para la personalizacion de la celda de la tabla en Notes con su respectivo Storyboard
+//
 
 import UIKit
 

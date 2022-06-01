@@ -4,6 +4,9 @@
 //
 //  Created by Dusa, Maria Paula on 31/5/22.
 //
+//     Esta clase se encarga de dar un formato mas personalizado a las imagenes y fechas.
+//
+//
 
 import UIKit
 

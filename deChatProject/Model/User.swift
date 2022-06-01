@@ -4,6 +4,9 @@
 //
 //  Created by Dusa, Maria Paula on 28/5/22.
 //
+//      Esta clase guarda el modelo de usuario asi como otras funciones con respecto al usuario, como almacenarlo
+//      de manera local y creacion de usuarios de ejemplo
+//
 
 import Foundation
 import Firebase
@@ -62,11 +65,11 @@ func saveUserLocally(_ user: User) {
     }
 }
 
-/*
+
 func createDummyUsers() {
-    print("creating dummy users...")
+    print("Dummy users just for example....")
     
-    let names = ["Alison Stamp", "Inayah Duggan", "Alfie Thornton", "Rachelle Neale", "Anya Gates", "Juanita Bate"]
+    let names = ["Micio", "Oreo", "Emilia", "Oscar"]
     
     var imageIndex = 1
     var userIndex = 1
@@ -90,4 +93,4 @@ func createDummyUsers() {
             imageIndex = 1
         }
     }
-*/
+}

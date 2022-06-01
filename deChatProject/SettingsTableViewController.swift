@@ -4,7 +4,8 @@
 //
 //  Created by Dusa, Maria Paula on 30/5/22.
 //
-
+//      Esta clase corresponde con la pantalla de Settings
+//
 import UIKit
 
 class SettingsTableViewController: UITableViewController {
@@ -30,13 +31,13 @@ class SettingsTableViewController: UITableViewController {
     
     //MARK: - Table View Delegates
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        // Custom header sections
+        // Headers de las secciones personalizados
         let headerView = UIView()
         headerView.backgroundColor = UIColor(named: "tableviewBackgroundColor")
         return headerView
     }
     
-    // Space betweens sections
+    // Espacio entre las secciones de la tabla
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return section == 0 ? 0.0 : 10.0
     }
@@ -86,7 +87,7 @@ class SettingsTableViewController: UITableViewController {
             appVersionLabel.text = "App version: \(Bundle.main.releaseVersionNumber ?? "")"
             
             if user.avatarLink != ""{
-                // Download and set avatar image
+                // Guardar y poner la imagen del avatar
                 FileStorage.downloadImage(imageUrl: user.avatarLink) { avatarImage in
                     self.avatarImage.image = avatarImage?.circleMasked
                 }

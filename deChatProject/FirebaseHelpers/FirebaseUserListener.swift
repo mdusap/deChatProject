@@ -4,14 +4,18 @@
 //
 //  Created by Dusa, Maria Paula on 28/5/22.
 //
+//      Esta clase se encarga de todo lo relacionado con los usuarios en firebase y en local: Login, Registrar,
+//      Verificacion, Cambio de contraseña, Actualizar...
+//
 
 import Foundation
 import Firebase
 
 class FirebaseUserListener {
     
+    // Para poder acceder desde otras clases
     static let shared = FirebaseUserListener()
-    
+    // init vacio
     private init () {}
     
     //MARK: - Login
@@ -19,12 +23,14 @@ class FirebaseUserListener {
         
         Auth.auth().signIn(withEmail: email, password: password) { (authDataResult, error) in
             
+            // Si el email esta verificado recoger de firebase la informacion del nuevo usuario
             if error == nil && authDataResult!.user.isEmailVerified {
                 
                 FirebaseUserListener.shared.downloadUserFromFirebase(userId: authDataResult!.user.uid, email: email)
-                
                 completion(error, true)
+                
             } else {
+                
                 print("Email is not verified")
                 completion(error, false)
             }
@@ -40,15 +46,14 @@ class FirebaseUserListener {
             
             if error == nil {
                 
-                //send verification email
                 authDataResult!.user.sendEmailVerification { (error) in
-                    print("Auth email sent with error: ", error?.localizedDescription)
+                    print("Auth email sent with error! description: ", error?.localizedDescription)
                 }
                 
-                //create user and save it
+                // Crear usuario y gaurdarlo tanto en firebase como localmente
                 if authDataResult?.user != nil {
                     
-                    let user = User(id: authDataResult!.user.uid, username: email, email: email, pushId: "", avatarLink: "", status: "Hi! I´m using deChat!")
+                    let user = User(id: authDataResult!.user.uid, username: email, email: email, pushId: "", avatarLink: "", status: "Hi! I´m new here!")
                     
                     saveUserLocally(user)
                     self.saveUserToFireStore(user)
@@ -57,7 +62,8 @@ class FirebaseUserListener {
         }
     }
     
-    //MARK: - Resend link methods
+    //MARK: - Resend Link
+    // ... Para Email
     func resendVerificationEmail(email: String, completion: @escaping (_ error: Error?) -> Void) {
         
         Auth.auth().currentUser?.reload(completion: { (error) in
@@ -68,7 +74,7 @@ class FirebaseUserListener {
         })
     }
 
-    
+    // ... Para contraseña
     func resetPasswordFor(email: String, completion: @escaping (_ error: Error?) -> Void) {
         
         Auth.auth().sendPasswordReset(withEmail: email) { (error) in
@@ -76,6 +82,7 @@ class FirebaseUserListener {
         }
     }
     
+    // Log Out
     func logOutCurrentUser(completion: @escaping (_ error: Error?) -> Void) {
         
         do {
@@ -101,7 +108,7 @@ class FirebaseUserListener {
         }
     }
 
-    //MARK: - Download
+    //MARK: - Download User
     
     func downloadUserFromFirebase(userId: String, email: String? = nil) {
         
@@ -182,7 +189,6 @@ class FirebaseUserListener {
     }
     
     //MARK: - Update
-    
     func updateUserInFirebase(_ user: User) {
         
         do {

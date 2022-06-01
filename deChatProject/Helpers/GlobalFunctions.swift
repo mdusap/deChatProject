@@ -4,6 +4,8 @@
 //
 //  Created by Dusa, Maria Paula on 31/5/22.
 //
+//      Esta clase se encarga de almacenar funciones globales 
+//
 
 import Foundation
 

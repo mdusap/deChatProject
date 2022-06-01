@@ -4,7 +4,8 @@
 //
 //  Created by Dusa, Maria Paula on 31/5/22.
 //
-//  This class is to save image that user upload as photo avat
+//      Esta clase se encarga del avatar del usuario, guardarlo en firebase en una carpeta especifica en FirebaseStorage,
+//      y en local y actualizarla.
 //
 
 import Foundation
@@ -16,11 +17,11 @@ let storage = Storage.storage()
 class FileStorage{
     
     class func uploadImage(_ image: UIImage, directory: String, completion: @escaping (_ documentLink: String?) -> Void){
-        // Base link to folder added to directory
+        // Base link para el archivo añadido al directorio
         let storageRef = storage.reference(forURL: kFILEREFERENCE).child(directory)
-        // Convert image to data, 1 to maximum quality and 0 to minimum
+        //  Convertir la imagen a data
         let imageData = image.jpegData(compressionQuality: 0.6)
-        // Need a task in order to save it to firebase
+        // Hay que hacer un task para poder subirlo al storages
         var task: StorageUploadTask!
         task = storageRef.putData(imageData!, metadata: nil, completion: { metadata, error in
             task.removeAllObservers()
@@ -43,7 +44,7 @@ class FileStorage{
         })
         
         task.observe(StorageTaskStatus.progress) { snapshot in
-            // Percentage of the progress
+            // Porcentage del progreso de la subida
             let progress = snapshot.progress!.completedUnitCount / snapshot.progress!.totalUnitCount
             ProgressHUD.showProgress(CGFloat(progress))
         }
@@ -54,18 +55,18 @@ class FileStorage{
         let imageFileName = fileNameFrom(fileUrl: imageUrl)
         
         if fileExistsAtPath(path: imageFileName) {
-            // Get it locally
+            // Recogerlo de manera local
             if let contentsOfFile = UIImage(contentsOfFile: fileInDocumentsDirectory(fileName: imageFileName)){
                 
                 completion(contentsOfFile)
                 
             }else{
-                print("Couldn`t convert local image")
+                print("Couldn´t convert local image")
                 completion(UIImage(named: "Avatar"))
             }
             
         }else{
-            // Download from firebase
+            // Download de firebase
             if imageUrl != "" {
                 let documentUrl = URL(string: imageUrl)
                 let downloadQueue = DispatchQueue(label: "imageDowloadQueue")
@@ -82,7 +83,7 @@ class FileStorage{
                         }
                         
                     }else{
-                        print("no document in data base")
+                        print("No document in data base")
                         DispatchQueue.main.async{
                             completion(nil)
                         }

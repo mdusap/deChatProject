@@ -22,6 +22,10 @@
 		3570BA362842766100F91FA8 /* FirebaseUserListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3570BA352842766100F91FA8 /* FirebaseUserListener.swift */; };
 		3570BA39284277C200F91FA8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3570BA38284277C200F91FA8 /* User.swift */; };
 		3570BA3C2842780B00F91FA8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3570BA3B2842780B00F91FA8 /* Constants.swift */; };
+		35EB074C2847E37600F8F51D /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EB074B2847E37600F8F51D /* Status.swift */; };
+		35EB074E2847E81100F8F51D /* StatusTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EB074D2847E81100F8F51D /* StatusTableViewController.swift */; };
+		35EB075028481CCC00F8F51D /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EB074F28481CCC00F8F51D /* UserTableViewCell.swift */; };
+		35EB075228481CE800F8F51D /* UsersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EB075128481CE800F8F51D /* UsersTableViewController.swift */; };
 		35F5114D28468C7F0056D65C /* EditProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F5114C28468C7F0056D65C /* EditProfileTableViewController.swift */; };
 		35F5114F284699850056D65C /* FileStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F5114E284699850056D65C /* FileStorage.swift */; };
 		35F511512846A4FE0056D65C /* GlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F511502846A4FE0056D65C /* GlobalFunctions.swift */; };
@@ -47,6 +51,10 @@
 		3570BA352842766100F91FA8 /* FirebaseUserListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseUserListener.swift; sourceTree = "<group>"; };
 		3570BA38284277C200F91FA8 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		3570BA3B2842780B00F91FA8 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		35EB074B2847E37600F8F51D /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
+		35EB074D2847E81100F8F51D /* StatusTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusTableViewController.swift; sourceTree = "<group>"; };
+		35EB074F28481CCC00F8F51D /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
+		35EB075128481CE800F8F51D /* UsersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersTableViewController.swift; sourceTree = "<group>"; };
 		35F5114C28468C7F0056D65C /* EditProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileTableViewController.swift; sourceTree = "<group>"; };
 		35F5114E284699850056D65C /* FileStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStorage.swift; sourceTree = "<group>"; };
 		35F511502846A4FE0056D65C /* GlobalFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalFunctions.swift; sourceTree = "<group>"; };
@@ -116,6 +124,9 @@
 				3570BA202842698200F91FA8 /* LoginViewController.swift */,
 				350E6EEF2845491400222361 /* SettingsTableViewController.swift */,
 				35F5114C28468C7F0056D65C /* EditProfileTableViewController.swift */,
+				35EB074D2847E81100F8F51D /* StatusTableViewController.swift */,
+				35EB074F28481CCC00F8F51D /* UserTableViewCell.swift */,
+				35EB075128481CE800F8F51D /* UsersTableViewController.swift */,
 				3570BA222842698200F91FA8 /* Main.storyboard */,
 				3570BA252842698300F91FA8 /* Assets.xcassets */,
 				3570BA272842698300F91FA8 /* LaunchScreen.storyboard */,
@@ -139,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				3570BA38284277C200F91FA8 /* User.swift */,
+				35EB074B2847E37600F8F51D /* Status.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -292,14 +304,18 @@
 				350E6EF228455C6E00222361 /* NotesTableViewController.swift in Sources */,
 				3570BA39284277C200F91FA8 /* User.swift in Sources */,
 				3570BA34284275C300F91FA8 /* FCollectionReference.swift in Sources */,
+				35EB074E2847E81100F8F51D /* StatusTableViewController.swift in Sources */,
 				35F5114F284699850056D65C /* FileStorage.swift in Sources */,
 				350E6EF02845491400222361 /* SettingsTableViewController.swift in Sources */,
 				3570BA3C2842780B00F91FA8 /* Constants.swift in Sources */,
 				35F5114D28468C7F0056D65C /* EditProfileTableViewController.swift in Sources */,
+				35EB075228481CE800F8F51D /* UsersTableViewController.swift in Sources */,
 				350E6EF628455CBC00222361 /* NotesTableViewCell.swift in Sources */,
 				3570BA1F2842698200F91FA8 /* SceneDelegate.swift in Sources */,
+				35EB074C2847E37600F8F51D /* Status.swift in Sources */,
 				3570BA362842766100F91FA8 /* FirebaseUserListener.swift in Sources */,
 				35F511512846A4FE0056D65C /* GlobalFunctions.swift in Sources */,
+				35EB075028481CCC00F8F51D /* UserTableViewCell.swift in Sources */,
 				35F511532846B14E0056D65C /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
