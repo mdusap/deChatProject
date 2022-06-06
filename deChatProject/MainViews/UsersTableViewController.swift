@@ -25,9 +25,9 @@ class UsersTableViewController: UITableViewController {
         
         tableView.tableFooterView = UIView()
         
-        //        createDummyUsers()
         setupSearchController()
         downloadUsers()
+        //createDummyUsers()
       
     }
     
@@ -54,8 +54,7 @@ class UsersTableViewController: UITableViewController {
         return cell
     }
     
-    //MARK: - TableViewDelegates
-    
+    //MARK: - Table View Delegates
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         let headerView = UIView()
@@ -64,6 +63,7 @@ class UsersTableViewController: UITableViewController {
         return headerView
     }
     
+    // Personalizacion header
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 5
     }
@@ -77,9 +77,9 @@ class UsersTableViewController: UITableViewController {
         showUserProfile(user)
     }
 
-    
     //MARK: - DownloadUsers
     private func downloadUsers() {
+        
         FirebaseUserListener.shared.downloadAllUsersFromFirebase { (allFirebaseUsers) in
             
             self.allUsers = allFirebaseUsers
@@ -121,26 +121,19 @@ class UsersTableViewController: UITableViewController {
         }
     }
     
-    
     //MARK: - Navigation
     private func showUserProfile(_ user: User) {
-        
+
         let profileView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "ProfileView") as! ProfileTableViewController
-        
+
         profileView.user = user
         self.navigationController?.pushViewController(profileView, animated: true)
     }
-
-
 }
 
-
 extension UsersTableViewController: UISearchResultsUpdating {
-    
     
     func updateSearchResults(for searchController: UISearchController) {
         filteredContentForSearchText(searchText: searchController.searchBar.text!)
     }
-
-
 }

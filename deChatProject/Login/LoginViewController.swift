@@ -4,7 +4,7 @@
 //
 //  Created by Dusa, Maria Paula on 28/5/22.
 //
-//      Esta clase es la clase principal. 
+//  Pantalla principal
 //
 
 import UIKit
@@ -34,11 +34,11 @@ class LoginViewController: UIViewController {
     //Vies
     @IBOutlet weak var repeatPasswordLineView: UIView!
     
-    //MARK: - Vars
+    //MARK: - Variables
     var isLogin = true
     var iconClick = true
     
-    //MARK: - View LifeCycle
+    //MARK: - Ciclo de vida del View
     override func viewDidLoad() {
         super.viewDidLoad()
        
@@ -80,7 +80,7 @@ class LoginViewController: UIViewController {
         isLogin.toggle()
     }
     
-    //MARK: - Setup
+    //MARK: - Preparacion
     private func setupTextFieldDelegates() {
         emailTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         passwordTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
@@ -103,7 +103,7 @@ class LoginViewController: UIViewController {
     }
     
     
-    //MARK: - Animations
+    //MARK: - Animaciones
     
     private func updateUIFor(login: Bool) {
         
@@ -209,7 +209,7 @@ class LoginViewController: UIViewController {
         }
     }
     
-    //MARK: - Navigation
+    //MARK: - Navigacion
     private func goToApp() {
         
         let mainView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "MainView") as! UITabBarController

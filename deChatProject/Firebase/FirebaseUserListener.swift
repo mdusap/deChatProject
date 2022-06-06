@@ -4,12 +4,12 @@
 //
 //  Created by Dusa, Maria Paula on 28/5/22.
 //
-//      Esta clase se encarga de todo lo relacionado con los usuarios en firebase y en local: Login, Registrar,
-//      Verificacion, Cambio de contraseña, Actualizar...
+//  Lo relacionado con los usuarios en firebase y guardado en local.
 //
 
 import Foundation
 import Firebase
+import ProgressHUD
 
 class FirebaseUserListener {
     
@@ -31,13 +31,13 @@ class FirebaseUserListener {
                 
             } else {
                 
-                print("Email is not verified")
+                print("El email no esta verificado")
                 completion(error, false)
             }
         }
     }
     
-    //MARK: - Register
+    //MARK: - Registrar
     func registerUserWith(email: String, password: String, completion: @escaping (_ error: Error?) -> Void) {
         
         Auth.auth().createUser(withEmail: email, password: password) { (authDataResult, error) in
@@ -47,7 +47,7 @@ class FirebaseUserListener {
             if error == nil {
                 
                 authDataResult!.user.sendEmailVerification { (error) in
-                    print("Auth email sent with error! description: ", error?.localizedDescription)
+                    print("Error en Email Auth, descr: ", error?.localizedDescription)
                 }
                 
                 // Crear usuario y gaurdarlo tanto en firebase como localmente
@@ -62,7 +62,7 @@ class FirebaseUserListener {
         }
     }
     
-    //MARK: - Resend Link
+    //MARK: - Reenviado de email
     // ... Para Email
     func resendVerificationEmail(email: String, completion: @escaping (_ error: Error?) -> Void) {
         
@@ -98,24 +98,24 @@ class FirebaseUserListener {
         
     }
     
-    //MARK: - Save users
+    //MARK: - Guardar usuarios
     func saveUserToFireStore(_ user: User) {
         
         do {
             try FirebaseReference(.User).document(user.id).setData(from: user)
         } catch {
-            print(error.localizedDescription, "Adding user")
+            print("Error en añadir usuario, descr:", error.localizedDescription)
         }
     }
 
-    //MARK: - Download User
+    //MARK: - Download 
     
     func downloadUserFromFirebase(userId: String, email: String? = nil) {
         
         FirebaseReference(.User).document(userId).getDocument { (querySnapshot, error) in
             
             guard let document = querySnapshot else {
-                print("No document for user")
+                print("No hay documento para el usuario")
                 return
             }
             
@@ -136,6 +136,8 @@ class FirebaseUserListener {
         }
     }
 
+    // Parte de recoger usuarios guardados en firebase
+    
     func downloadAllUsersFromFirebase(completion: @escaping (_ allUsers: [User]) -> Void ) {
         
         var users: [User] = []
@@ -143,7 +145,7 @@ class FirebaseUserListener {
         FirebaseReference(.User).limit(to: 500).getDocuments { (querySnapshot, error) in
             
             guard let document = querySnapshot?.documents else {
-                print("No documents in all users")
+                print("No hay documento para los usuarios")
                 return
             }
             
@@ -171,15 +173,18 @@ class FirebaseUserListener {
             FirebaseReference(.User).document(userId).getDocument { (querySnapshot, error) in
                 
                 guard let document = querySnapshot else {
-                    print("No document for user")
+                    print("No hay documento")
                     return
                 }
                 
                 let user = try? document.data(as: User.self)
 
-                usersArray.append(user!)
-                count += 1
-                
+                if user != nil{
+                    usersArray.append(user!)
+                    count += 1
+                }else{
+                    ProgressHUD.showFailed("This user does not exist anymore, sorry!")
+                }
                 
                 if count == withIds.count {
                     completion(usersArray)
@@ -188,13 +193,13 @@ class FirebaseUserListener {
         }
     }
     
-    //MARK: - Update
+    //MARK: - Actualizar
     func updateUserInFirebase(_ user: User) {
         
         do {
             let _ = try FirebaseReference(.User).document(user.id).setData(from: user)
         } catch {
-            print(error.localizedDescription, "pdating user...")
+            print("Error en actualizar el usuario ",error.localizedDescription)
         }
     }
 

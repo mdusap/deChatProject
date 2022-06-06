@@ -4,6 +4,8 @@
 //
 //  Created by Dusa, Maria Paula on 28/5/22.
 //
+//  Colecciones creadas en firebase para guardar la info 
+//
 
 import Foundation
 import FirebaseFirestore

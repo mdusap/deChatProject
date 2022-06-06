@@ -4,7 +4,7 @@
 //
 //  Created by Dusa, Maria Paula on 1/6/22.
 //
-//      Esta clase contendra el modelo del status que el usuario puede elegir en su status.
+//  Modelo para los diferentes estados.
 //
 
 

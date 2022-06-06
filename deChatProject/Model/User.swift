@@ -4,8 +4,8 @@
 //
 //  Created by Dusa, Maria Paula on 28/5/22.
 //
-//      Esta clase guarda el modelo de usuario asi como otras funciones con respecto al usuario, como almacenarlo
-//      de manera local y creacion de usuarios de ejemplo
+// Modelo para Usuario con sus atributos, funcion para decodificar json y guardat datos en local,
+// y usuarios de prueba.
 //
 
 import Foundation
@@ -38,7 +38,7 @@ struct User: Codable, Equatable {
                     let userObject = try decoder.decode(User.self, from: dictionary)
                     return userObject
                 } catch {
-                    print("Error decoding User from UserDefaults, description: ", error.localizedDescription)
+                    print("Error en decodificar usuario desde UserDefaults, descr: ", error.localizedDescription)
                 }
             }
         }
@@ -52,7 +52,6 @@ struct User: Codable, Equatable {
 }
 
 
-
 func saveUserLocally(_ user: User) {
     
     let encoder = JSONEncoder()
@@ -61,20 +60,20 @@ func saveUserLocally(_ user: User) {
         let data = try encoder.encode(user)
         UserDefaults.standard.set(data, forKey: kCURRENTUSER)
     } catch {
-        print("Error saving user locally, description: ", error.localizedDescription)
+        print("Error en guardar el usuario de manera local, descr: ", error.localizedDescription)
     }
 }
 
 
 func createDummyUsers() {
-    print("Dummy users just for example....")
+    print("Usuarios de ejemplo")
     
     let names = ["Micio", "Oreo", "Emilia", "Oscar"]
     
     var imageIndex = 1
     var userIndex = 1
     
-    for i in 0..<5 {
+    for i in 0..<4 {
         
         let id = UUID().uuidString
         

@@ -4,7 +4,7 @@
 //
 //  Created by Dusa, Maria Paula on 31/5/22.
 //
-//     Esta clase se encarga de dar un formato mas personalizado a las imagenes y fechas.
+//  Dar formato mas personalizado para usar en las imagenes y fechas a lo largo de la app.
 //
 //
 
@@ -19,6 +19,7 @@ extension UIImage {
     var breadthSize: CGSize { return CGSize(width: breadth, height: breadth) }
     var breadthRect: CGRect { return CGRect(origin: .zero, size: breadthSize) }
     
+    // Variable para que la imagen se ponga circular y con zoom.
     var circleMasked: UIImage? {
         
         UIGraphicsBeginImageContextWithOptions(breadthSize, false, scale)
@@ -33,27 +34,30 @@ extension UIImage {
     
 }
 
-
 extension Date {
     
+    // Fecha
     func longDate() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd MMM yyyy"
         return dateFormatter.string(from: self)
     }
     
+    // Fecha y hora
     func stringDate() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "ddMMMyyyyHHmmss"
         return dateFormatter.string(from: self)
     }
     
+    // Hora
     func time() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
         return dateFormatter.string(from: self)
     }
     
+    // Tiempo que pasa entre fechas
     func interval(ofComponent comp: Calendar.Component, from date: Date) -> Float {
         
         let currentCalendar = Calendar.current

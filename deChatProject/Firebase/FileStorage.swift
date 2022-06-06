@@ -4,8 +4,7 @@
 //
 //  Created by Dusa, Maria Paula on 31/5/22.
 //
-//      Esta clase se encarga del avatar del usuario, guardarlo en firebase en una carpeta especifica en FirebaseStorage,
-//      y en local y actualizarla.
+//  Lo relacionado con Storage de firebase: imagenes
 //
 
 import Foundation
@@ -28,7 +27,7 @@ class FileStorage{
             ProgressHUD.dismiss()
             
             if error != nil {
-                print("Error uploading image!: \(error?.localizedDescription)")
+                print("Error en guardar la imagen, descr: \(error?.localizedDescription)")
                 return
             }
             
@@ -61,7 +60,7 @@ class FileStorage{
                 completion(contentsOfFile)
                 
             }else{
-                print("Couldn´t convert local image")
+                print("No se ha podido convertir la imagen")
                 completion(UIImage(named: "Avatar"))
             }
             
@@ -83,7 +82,7 @@ class FileStorage{
                         }
                         
                     }else{
-                        print("No document in data base")
+                        print("No hay documento")
                         DispatchQueue.main.async{
                             completion(nil)
                         }
@@ -95,7 +94,7 @@ class FileStorage{
         
     }
     
-    //MARK: - Save Locally
+    //MARK: - Guardar de manera local
     
     class func saveFileLocally(fileData: NSData, fileName: String){
         

@@ -4,8 +4,7 @@
 //
 //  Created by Dusa, Maria Paula on 30/5/22.
 //
-//      Esta clase tiene toda la implementacion de Notes, se pueden crear notas cortitas para algo en especifico, rapido
-//      y corto, modificar dicha nota, eliminarla, guardarla y tambien que se guarde en local.
+//  Implementacion de Notes, se pueden crear notas cortitas para algo en especifico, rapido y corto, modificar dicha nota, eliminarla, guardarla y tambien que se guarde en local, menos en firebase.
 //
 
 import UIKit
