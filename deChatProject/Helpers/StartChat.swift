@@ -4,8 +4,9 @@
 //
 //  Created by Dusa, Maria Paula on 2/6/22.
 //
-//       Chat Room Id único e info reciente de chats.
-//
+
+/// Boron StartChat, tendrá un identificador de chat único e info reciente de chats.
+
 
 import Foundation
 import Firebase
@@ -16,12 +17,14 @@ func startChat(user1: User, user2: User) -> String {
     let chatRoomId = chatRoom(user1Id: user1.id, user2Id: user2.id)
     
     createRecentItems(chatRoomId: chatRoomId, users: [user1, user2])
-    
+
     return chatRoomId
     
 }
 
+//MARK: - RESTART CHAT
 func restartChat(chatRoomId: String, memberIds: [String]){
+    
     FirebaseUserListener.shared.downloadUsersFromFirebase(withIds: memberIds) { users in
         if users.count > 0 {
             createRecentItems(chatRoomId: chatRoomId, users: users)
@@ -29,6 +32,7 @@ func restartChat(chatRoomId: String, memberIds: [String]){
     }
 }
 
+//MARK: - CREAR ITEMS RECIENTES
 func createRecentItems(chatRoomId: String, users: [User]){
     
     // Recoge los id de todos los usuarios
@@ -42,11 +46,13 @@ func createRecentItems(chatRoomId: String, users: [User]){
         guard let s = s else {return}
         
         if !s.isEmpty{
+            
             memberIdRecent = removeMemberRecent(snapshoot: s, memberIds: memberIdRecent)
             //print("actualizado", memberIdRecent)
         }
         
         for userId in memberIdRecent {
+            
             //print("crea reciente", memberIdRecent)
             let senderUser = userId == User.currentId ? User.currentUser! : getReceiver(users: users)
             let receiverUser = userId == User.currentId ? getReceiver(users: users) : User.currentUser!
@@ -57,8 +63,9 @@ func createRecentItems(chatRoomId: String, users: [User]){
         }
     }
 }
-
+//MARK: - REMOVER USER RECIENTE
 func removeMemberRecent(snapshoot: QuerySnapshot, memberIds: [String]) -> [String]{
+    
     var memberIdsRecent = memberIds
     
     for recentData in snapshoot.documents{
@@ -75,8 +82,9 @@ func removeMemberRecent(snapshoot: QuerySnapshot, memberIds: [String]) -> [Strin
     return memberIdsRecent
 }
 
-
+//MARK: - CHAT ROOM
 func chatRoom(user1Id: String, user2Id: String) -> String {
+    
     var chatRoomId = ""
     
     let value = user1Id.compare(user2Id).rawValue
@@ -86,7 +94,9 @@ func chatRoom(user1Id: String, user2Id: String) -> String {
     return chatRoomId
 }
 
+//MARK: - RECOGER RECIBIDOR
 func getReceiver(users: [User]) -> User {
+    
     var allUsers = users
     allUsers.remove(at: allUsers.firstIndex(of: User.currentUser!)!)
     return allUsers.first!

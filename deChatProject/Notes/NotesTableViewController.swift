@@ -4,8 +4,9 @@
 //
 //  Created by Dusa, Maria Paula on 30/5/22.
 //
-//  Implementacion de Notes, se pueden crear notas cortitas para algo en especifico, rapido y corto, modificar dicha nota, eliminarla, guardarla y tambien que se guarde en local, menos en firebase.
-//
+
+///  Implementacion de Notes, se pueden crear notas cortitas para algo en especifico, rapido y corto, modificar dicha nota, eliminarla, guardarla y tambien que se guarde en local, menos en firebase.
+
 
 import UIKit
 
@@ -14,52 +15,53 @@ class NotesTableViewController: UITableViewController {
     //MARK: - IBOutlets
     @IBOutlet var table: UITableView!
 
-    
-    //MARK: - Vars
+    //MARK: - Variables
     var items = [String]()
     
     //MARK: - Text Field
     var textForUpdate: UITextField?
     
-    //MARK: - View Life Cycle
+    //MARK: - Ciclo de Vida del View
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Register Cell
+        // Registramos la celda que se usara en la tabla del screen
         table.register(UINib(nibName: "NotesTableViewCell", bundle: nil), forCellReuseIdentifier: "cell")
+        // Se guardan los items en UserDefaults
         self.items = UserDefaults.standard.stringArray(forKey: "items") ?? []
+        // Boton para añadir nota
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAdd))
     }
     
 
-    //MARK: - Action
+    //MARK: - Acciones
     @objc private func didTapAdd(){
         
-        //UIAlertController is an object that displays an alert message to the user.
+        //UIAlertController como ProgressHUD para mostrar mensajes al usuario
         let alert = UIAlertController(title:"New Item",
                                       message: "Enter a new note!",
                                       preferredStyle: .alert)
         
-        //Adding a text field to the alert object
+        //Añadimos un Text Field a la alerta para que el usuaro escriba
         alert.addTextField{ field in
-            //Hint message that says what the user should input
+            //Mensaje de hint para que el usuario sepa lo que tiene que escribir
             field.placeholder = "Enter item..."
             
         }
         
-        //Adding two differetn action for the user to do with the alert
+        // Acciones de cancelar o hecho
         alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
-        //We use WEAK SELF to not cause a memory leak most used to avoud strong reference cycles
         alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { [weak self] (_) in
             
-            //To know if the user had write a text or not
+            //Saber si el usuario ha escrito algo o lo ha dejado vacio
             if let field = alert.textFields?.first {
+                
                 if let text = field.text, !text.isEmpty{
-                    //Enter new to do list item
-                    //This referes how the task is handled, Synchronous function returns the control on the current queue only after task is finished
+                    
                     DispatchQueue.main.async {
-                        //User Defaults to save the data
+                        //En este caso he usado UserDefaults para guardar los datos
                         var currentItems = UserDefaults.standard.stringArray(forKey: "items") ?? []
+                        // Append para añadir los datos
                         currentItems.append(text)
                         UserDefaults.standard.setValue(currentItems, forKey: "items")
                         
@@ -70,30 +72,26 @@ class NotesTableViewController: UITableViewController {
             }
             
         }))
-        
-        //This one Presents a view controller modally. in this case it will present alert modally
         present(alert, animated: true)
     }
 }
 
-//MARK: - Extension
+//MARK: - Extensiones
 
 extension NotesTableViewController {
     
-    //Obligatory functions of the table, the number of rows it has to have and the cells
+    //Numero de filas segun cuantos items
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = table.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        
-        //textLabel it will be deprecated in next version of IOS
         cell.textLabel?.text = items[indexPath.row]
-        
         return cell
     }
     
+    // Añado funcionalidad de borrar item
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return .delete
     }
@@ -118,6 +116,7 @@ extension NotesTableViewController {
         }
     }
     
+    // Si se ha pulsado sobre una nota ya escrita se podra editar la nota ...
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let itemSelected = items[indexPath.row]

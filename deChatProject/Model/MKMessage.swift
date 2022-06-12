@@ -4,8 +4,9 @@
 //
 //  Created by Dusa, Maria Paula on 6/6/22.
 //
-//  Modelo del mensaje
-//
+
+/// Modelo MessageKitMessage del mensaje
+
 
 import Foundation
 import MessageKit
@@ -22,6 +23,11 @@ class MKMessage: NSObject, MessageType{
     var sender: SenderType { return mkSender }
     var senderInitials: String
     
+    var photoItem: PhotoMS?
+    var videoItem: VideoMS?
+    var locationItem: LocationMS?
+    var audioItem: AudioMS?
+    
     var status: String
     var readDate: Date
     
@@ -33,12 +39,29 @@ class MKMessage: NSObject, MessageType{
         self.kind = MessageKind.text(message.message)
         
         // Switch segun tipo de mensaje
-//        switch message.type {
-//        case <#pattern#>:
-//            <#code#>
-//        default:
-//            <#code#>
-//        }
+        switch message.type {
+        case kTEXT:
+            self.kind = MessageKind.text(message.message)
+        case kPHOTO:
+            let photoItem = PhotoMS(path: message.picUrl)
+            self.kind = MessageKind.photo(photoItem)
+            self.photoItem = photoItem
+        case kVIDEO:
+            let videoItem = VideoMS(url: nil)
+            self.kind = MessageKind.video(videoItem)
+            self.videoItem = videoItem
+        case kLOCATION:
+            let locationItem = LocationMS(location: CLLocation(latitude: message.latitude, longitude: message.longitude))
+            self.kind = MessageKind.location(locationItem)
+            self.locationItem = locationItem
+        case kAUDIO:
+            let audioItem = AudioMS(duration: 2.0)
+            self.kind = MessageKind.audio(audioItem)
+            self.audioItem = audioItem
+        default:
+            self.kind = MessageKind.text(message.message)
+            print("Tipo de mensaje desconocido")
+        }
         
         self.senderInitials = message.senderInitials
         self.sentDate = message.date

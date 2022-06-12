@@ -4,8 +4,8 @@
 //
 //  Created by Dusa, Maria Paula on 6/6/22.
 //
-//  Manager del framework RealmSwift
-//
+
+/// Manager del Realm, funciones que se podran usar a lo largo de la app para guardar info necesaria en Realm.
 
 import Foundation
 import RealmSwift

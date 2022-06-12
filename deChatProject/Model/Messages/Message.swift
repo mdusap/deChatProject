@@ -4,8 +4,9 @@
 //
 //  Created by Dusa, Maria Paula on 6/6/22.
 //
-//  Modelo del chat de mensaje
 //
+
+/// Modelo de mensaje que sera guardado en Realm, an offline data base
 
 import Foundation
 import RealmSwift
@@ -27,7 +28,7 @@ class Message: Object, Codable {
     @objc dynamic var audioUrl = ""
     @objc dynamic var videoUrl = ""
     @objc dynamic var picUrl = ""
-    @objc dynamic var latitude = ""
+    @objc dynamic var latitude = 0.0
     @objc dynamic var longitude = 0.0
     @objc dynamic var audioDuration = 0.0
     

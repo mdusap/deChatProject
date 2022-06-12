@@ -4,8 +4,9 @@
 //
 //  Created by Dusa, Maria Paula on 2/6/22.
 //
-//  Implementa los chats en la tabla de Chats.
-//
+
+/// Implementa los chats en la tabla de Chats.
+
 
 import UIKit
 import SwiftUI

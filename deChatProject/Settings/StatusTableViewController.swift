@@ -4,8 +4,9 @@
 //
 //  Created by Dusa, Maria Paula on 1/6/22.
 //
-//      Esta es la clase para los diferentes status del usuario, en la pantalla de Settings
-//
+
+/// Esta es la clase para los diferentes estados del usuario, en la pantalla de Settings
+
 
 import UIKit
 

@@ -4,37 +4,17 @@
 //
 //  Created by Dusa, Maria Paula on 1/6/22.
 //
-//  Modelo para los diferentes estados.
-//
 
+///  Modelo para los diferentes estados del usuario en la app.
 
 import Foundation
 
-
-enum Status: String{
+enum Status: String, CaseIterable{
     
     case Available = "Available"
     case Busy = "Busy"
     case beBack = "Be right back"
     case notDisturb = "Do not disturb"
     case ct = "Can´t talk right now!"
-    
-    static var array: [Status]{
-        var a: [Status] = []
-        
-        switch Status.Available {
-        case .Available:
-            a.append(.Available); fallthrough
-        case .Busy:
-            a.append(.Busy); fallthrough
-        case .beBack:
-            a.append(.beBack); fallthrough
-        case .notDisturb:
-            a.append(.notDisturb); fallthrough
-        case .ct:
-            a.append(.ct);
-        return a
-        }
-    }
     
 }

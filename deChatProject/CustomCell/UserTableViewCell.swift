@@ -4,8 +4,9 @@
 //
 //  Created by Dusa, Maria Paula on 2/6/22.
 //
-//      Esta clase contiene las funciones para las celdas de los usuarios en la pantalla de users
-//
+
+/// Esta clase contiene las funciones para las celdas de los usuarios en la pantalla de users
+
 
 import UIKit
 

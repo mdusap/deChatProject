@@ -4,8 +4,9 @@
 //
 //  Created by Dusa, Maria Paula on 2/6/22.
 //
-//      Esta clase se encarga de mostrar los usuarios en la tabla, en la pantalla de Users
-//
+
+/// Esta clase se encarga de mostrar los usuarios en la tabla, en la pantalla de Users
+
 
 import UIKit
 

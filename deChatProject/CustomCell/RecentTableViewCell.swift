@@ -5,11 +5,13 @@
 //  Created by Dusa, Maria Paula on 2/6/22.
 //
 
+/// Clase para mostrar info reciente en las celdas de la tabla
+
 import UIKit
 
 class RecentTableViewCell: UITableViewCell {
     
-    //MARK: - IBActions
+    //MARK: - IBOutlets
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var lastMessageLabel: UILabel!
@@ -17,7 +19,6 @@ class RecentTableViewCell: UITableViewCell {
     @IBOutlet weak var unreadCounterLabel: UILabel!
     @IBOutlet weak var unreadCounterBackgroundView: UIView!
     
-
     override func awakeFromNib() {
         super.awakeFromNib()
         unreadCounterBackgroundView.layer.cornerRadius = unreadCounterBackgroundView.frame.width / 2
@@ -25,11 +26,7 @@ class RecentTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        
     }
-    
-    //MARK: -
     
     // Configurar la celda del chat
     func configure(recent: RecentChat){

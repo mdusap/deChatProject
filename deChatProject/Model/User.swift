@@ -4,9 +4,10 @@
 //
 //  Created by Dusa, Maria Paula on 28/5/22.
 //
-// Modelo para Usuario con sus atributos, funcion para decodificar json y guardat datos en local,
-// y usuarios de prueba.
-//
+
+///  Modelo para Usuario con sus atributos, funcion para decodificar json y guardat datos en local,
+///  y usuarios de prueba.
+
 
 import Foundation
 import Firebase
@@ -22,11 +23,11 @@ struct User: Codable, Equatable {
     var avatarLink = ""
     var status: String
     
-    
+    //MARK: - ID DEL USUARIO ACTUAL
     static var currentId: String {
         return Auth.auth().currentUser!.uid
     }
-    
+    //MARK: - DATOS USUARIO ACTUAL
     static var currentUser: User? {
         
         if Auth.auth().currentUser != nil {
@@ -51,7 +52,7 @@ struct User: Codable, Equatable {
     }
 }
 
-
+//MARK: - GUARDAR USUARIO LOCALMENTE
 func saveUserLocally(_ user: User) {
     
     let encoder = JSONEncoder()
@@ -64,7 +65,7 @@ func saveUserLocally(_ user: User) {
     }
 }
 
-
+//MARK: - USUARIOS PREDEFINIDOS
 func createDummyUsers() {
     print("Usuarios de ejemplo")
     

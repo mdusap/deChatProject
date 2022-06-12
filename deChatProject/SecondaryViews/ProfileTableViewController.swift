@@ -4,8 +4,8 @@
 //
 //  Created by Dusa, Maria Paula on 2/6/22.
 //
-//      Mostrar el perfil del usuario
-//
+
+/// Clase encargada del perfil del usuario.
 
 import UIKit
 

@@ -4,8 +4,9 @@
 //
 //  Created by Dusa, Maria Paula on 30/5/22.
 //
-//      Esta clase corresponde con la pantalla de Settings
-//
+
+/// Esta clase corresponde con las funciones de la pantalla de Settings.
+
 import UIKit
 
 class SettingsTableViewController: UITableViewController {
@@ -51,18 +52,7 @@ class SettingsTableViewController: UITableViewController {
         }
         
     }
-    
-    //MARK: - IBActions
-    @IBAction func TellAFriendButtonPressed(_ sender: Any) {
-       
-        
-    }
-    
-    @IBAction func termsAndConditionsButtonPressed(_ sender: Any) {
-       
-        
-    }
-    
+
     // Got back to log in when log out
     @IBAction func logOutButtonPressed(_ sender: Any) {
         FirebaseUserListener.shared.logOutCurrentUser { (error) in

@@ -4,8 +4,8 @@
 //
 //  Created by Dusa, Maria Paula on 28/5/22.
 //
-//  Colecciones creadas en firebase para guardar la info 
-//
+
+/// Colecciones como carpetas en Firebase que guardara la info de la app según cada carpeta.
 
 import Foundation
 import FirebaseFirestore

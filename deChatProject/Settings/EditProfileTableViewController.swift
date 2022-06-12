@@ -4,8 +4,9 @@
 //
 //  Created by Dusa, Maria Paula on 31/5/22.
 //
-//      Esta clase corresponde con el boton Edit de la pantalla de Settings
-//
+
+/// Esta clase corresponde con el boton Edit de la pantalla de Settings
+
 
 import UIKit
 import Gallery

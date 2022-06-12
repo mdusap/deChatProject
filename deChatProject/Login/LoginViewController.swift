@@ -4,8 +4,8 @@
 //
 //  Created by Dusa, Maria Paula on 28/5/22.
 //
-//  Pantalla principal
-//
+
+/// Contiene el codigo para poder realizar el login
 
 import UIKit
 import Firebase
@@ -48,6 +48,7 @@ class LoginViewController: UIViewController {
     }
     
     //MARK: - IBActions
+    // Si se ha pulsado del boton de login
     @IBAction func loginButtonPressed(_ sender: Any) {
         
         if isDataInputedFor(type: isLogin ? "login" : "register") {
@@ -57,6 +58,7 @@ class LoginViewController: UIViewController {
         }
     }
     
+    // Si se ha pulsado que se ha olvidado contraseña
     @IBAction func forgotPasswordButtonPressed(_ sender: Any) {
         
         if isDataInputedFor(type: "password") {
@@ -66,6 +68,7 @@ class LoginViewController: UIViewController {
         }
     }
     
+    // Si se ha pulsado para volver a enviar un email de verificacion
     @IBAction func resendEmailButtonPressed(_ sender: Any) {
         
             if isDataInputedFor(type: "password") {
@@ -75,12 +78,14 @@ class LoginViewController: UIViewController {
             }
     }
     
+    // Boton de registrartse
     @IBAction func signUpButtonPressed(_ sender: Any) {
         updateUIFor(login: (sender as AnyObject).titleLabel?.text == "Login")
         isLogin.toggle()
     }
     
-    //MARK: - Preparacion
+    //MARK: - Preparacion del screen
+    // Lo que hara cada text field segun su target...
     private func setupTextFieldDelegates() {
         emailTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         passwordTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
@@ -88,10 +93,10 @@ class LoginViewController: UIViewController {
 
     }
 
+    //...En este caso se actualizara su placeholder
     @objc func textFieldDidChange(_ textField: UITextField) {
         updatePlaceholderLabels(textField: textField)
     }
-    
     
     private func setupBackgroundTap() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(backgroundTap))
@@ -104,7 +109,7 @@ class LoginViewController: UIViewController {
     
     
     //MARK: - Animaciones
-    
+    // Actualizar UI segun elecciones del usuario
     private func updateUIFor(login: Bool) {
         
         loginButtonOutlet.setImage(UIImage(named: login ? "loginBtn" : "registerBtn"), for: .normal)
@@ -120,6 +125,7 @@ class LoginViewController: UIViewController {
         
     }
     
+    // Actualizar los placeholder segun si el usuario ha pulsado uno o no
     private func updatePlaceholderLabels(textField: UITextField) {
         
         switch textField {
@@ -135,6 +141,7 @@ class LoginViewController: UIViewController {
 
     
     //MARK: - Helpers
+    // Devolver los valores si no estan vacios
     private func isDataInputedFor(type: String) -> Bool {
         
         switch type {
@@ -148,6 +155,7 @@ class LoginViewController: UIViewController {
         
     }
     
+    // Log In
     private func loginUser() {
         FirebaseUserListener.shared.loginUserWithEmail(email: emailTextField.text!, password: passwordTextField.text!) { (error, isEmailVerified) in
             
@@ -166,6 +174,7 @@ class LoginViewController: UIViewController {
         }
     }
 
+    // Registrar usuario
     private func registerUser() {
         
         if passwordTextField.text! == repeatPasswordTextField.text! {
@@ -185,7 +194,7 @@ class LoginViewController: UIViewController {
         }
     }
     
-    
+    // Resetear contraseña
     private func resetPassword() {
         FirebaseUserListener.shared.resetPasswordFor(email: emailTextField.text!) { (error) in
             
@@ -196,7 +205,7 @@ class LoginViewController: UIViewController {
             }
         }
     }
-    
+    // Volver a enviar email de verificacion
     private func resendVerificationEmail() {
         FirebaseUserListener.shared.resendVerificationEmail(email: emailTextField.text!) { (error) in
             

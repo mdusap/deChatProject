@@ -4,14 +4,16 @@
 //
 //  Created by Dusa, Maria Paula on 2/6/22.
 //
-//      Estructura de un chat reciente para mostrar en la celda, en la tabla de chats.
-//
+
+/// Estructura de un chat reciente para mostrar en la celda, en la tabla de chats.
+
 
 import Foundation
 import FirebaseFirestoreSwift
 
 
 struct RecentChat: Codable {
+    
     var id = ""
     var chatRoomId = ""
     var senderId = ""

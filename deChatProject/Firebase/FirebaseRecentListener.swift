@@ -4,8 +4,8 @@
 //
 //  Created by Dusa, Maria Paula on 2/6/22.
 //
-//  Lo relacionado con la info reciente de chats en Firebase.
-//
+
+/// Conexion con Firebase que se encargara de la información reciente.
 
 import Foundation
 import Firebase
@@ -18,6 +18,7 @@ class FirebaseRecentListener {
     // Init
     private init(){}
     
+    //MARK: - Chats recientes
     func recentChatFirestore(completion: @escaping(_ allRecents: [RecentChat]) -> Void){
         FirebaseReference(.Recent).whereField(kSENDERID, isEqualTo: User.currentId).addSnapshotListener{ (querySnapshot, error) in
             
@@ -48,6 +49,7 @@ class FirebaseRecentListener {
         }
     }
     
+    //MARK: - Contador info reciente
     func resetRecentCounter(chatRoomId: String){
         FirebaseReference(.Recent).whereField(kCHATROOMID, isEqualTo: chatRoomId).whereField(kSENDERID, isEqualTo: User.currentId).getDocuments { querySnapshot, error in
             
@@ -70,6 +72,7 @@ class FirebaseRecentListener {
         }
     }
     
+    //MARK: - Actualizar infos recientes
     func updateRecents(chatRoomId: String, lastMessage: String) {
         
         FirebaseReference(.Recent).whereField(kCHATROOMID, isEqualTo: chatRoomId).getDocuments { (querySnapshot, error) in
@@ -84,12 +87,15 @@ class FirebaseRecentListener {
             }
             
             for recentChat in allRecents {
-                self.updateRecentItemWithNewMessage(recent: recentChat, lastMessage: lastMessage)
+                self.updateRecentNew(recent: recentChat, lastMessage: lastMessage)
             }
         }
     }
     
-    private func updateRecentItemWithNewMessage(recent: RecentChat, lastMessage: String) {
+    //MARK: - Actualizar reciente como mensaje
+    
+    // Buscara info reciente que perteneces a un chat room especifico
+    private func updateRecentNew(recent: RecentChat, lastMessage: String){
         
         var tempRecent = recent
         
@@ -103,7 +109,7 @@ class FirebaseRecentListener {
         self.saveRecent(tempRecent)
     }
     
-    
+    //MARK: - Limpiar contador
     // Cuando se pulse en un chat quitar el simbolo de mostrar mensaje sin leer
     func clearCounter(recent: RecentChat){
         var nRecent = recent
@@ -111,7 +117,7 @@ class FirebaseRecentListener {
         self.saveRecent(nRecent)
     }
     
-    
+    //MARK: - Guardar reciente
     // Añadir info reciente a firebase
     func saveRecent(_ recent: RecentChat){
         do{
@@ -122,8 +128,8 @@ class FirebaseRecentListener {
         }
     }
     
+    //MARK: - Eliminar reciente
     func deleteRecent(_ recent: RecentChat){
         FirebaseReference(.Recent).document(recent.id).delete()
-        
     }
 }

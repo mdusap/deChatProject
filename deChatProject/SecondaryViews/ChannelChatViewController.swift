@@ -1,11 +1,9 @@
 //
-//  ChatViewController.swift
+//  ChannelChatViewController.swift
 //  deChatProject
 //
-//  Created by Dusa, Maria Paula on 3/6/22.
+//  Created by Dusa, Maria Paula on 11/6/22.
 //
-
-/// Clase principal de la funcionalidad de los chats
 
 import UIKit
 import MessageKit
@@ -13,85 +11,45 @@ import InputBarAccessoryView
 import Gallery
 import RealmSwift
 
-class ChatViewController: MessagesViewController {
-    
-    //MARK: - Vistas
-    // Creación de propiedades de una vista mediante código
-    let leftBarButton: UIView = {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 50))
-        return view
-    }()
-    
-    let titleLabel: UILabel = {
-        let title = UILabel(frame: CGRect(x: 5, y: 0, width: 180, height: 25))
-        title.textAlignment = .left
-        title.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        // Ajustar texto segun tamaño de este
-        title.adjustsFontSizeToFitWidth = true
-        return title
-    }()
-    
-    let subTitleLabel: UILabel = {
-        let subTitle = UILabel(frame: CGRect(x: 5, y: 22, width: 180, height: 20))
-        subTitle.textAlignment = .left
-        subTitle.font = UIFont.systemFont(ofSize: 13, weight: .medium)
-        // Ajustar texto segun tamaño de este
-        subTitle.adjustsFontSizeToFitWidth = true
-        return subTitle
-    }()
-    
+class ChannelChatViewController: MessagesViewController {
     
     //MARK: - Variables
     private var chatId = ""
     private var recipientId = ""
     private var recipientName = ""
     
-    // Para inicializar clase solo cuando nos hace falta para el audio
+    var channel: Channel!
+    
     open lazy var audioController = BasicAudioController(messageCollectionView: messagesCollectionView)
     
-    // Recoger el sender
-    let currentUser = MKSender(senderId: User.currentId, displayName: User.currentUser!.username)
-    
-    let refreshController = UIRefreshControl()
-    
-    let micButton = InputBarButtonItem()
 
-    // Array mensajes
+    let currentUser = MKSender(senderId: User.currentId, displayName: User.currentUser!.username)
+    let refreshController = UIRefreshControl()
+    let micButton = InputBarButtonItem()
     var mkMessages:[MKMessage] = []
-    // Array mensajes en Realm
     var allMessages: Results<Message>!
-    // Variable para acceder a la base de datos de Realm
     let realm = try! Realm()
-    
-    //Cuantos mensajes y cuales se muestran
     var displayMessagesCount = 0
     var maxNum = 0
     var minNum = 0
-    
-    // Variable para el escribiendo
-    var typingCounter = 0
-    
-    // Variable para la galeria
     var gallery: GalleryController!
     
     //MARK: - Listeners
     var notificationToken: NotificationToken?
-    
-    // Para cuando se pulsa el boton de audio para mandar un audio
     var longPressGesture: UILongPressGestureRecognizer!
-    
     var audioFileName = ""
     var audioDuration: Date!
     
     //MARK: - Init
-    // Constructor
-    init(chatId: String, recipientId: String, recipientName: String) {
+    init(channel: Channel) {
         
         super.init(nibName: nil, bundle: nil)
         
-        self.chatId = chatId
-        self.recipientId = recipientId
-        self.recipientName = recipientName
+        self.chatId = channel.id
+        self.recipientId = channel.id
+        self.recipientName = channel.name
+        self.channel = channel
+
     }
     
     required init?(coder: NSCoder) {
@@ -104,8 +62,6 @@ class ChatViewController: MessagesViewController {
         
         navigationItem.largeTitleDisplayMode = .never
         
-        createTypingObserver()
-        
         configureLeftBarButton()
         configureCustomTitle()
         
@@ -116,7 +72,6 @@ class ChatViewController: MessagesViewController {
         
         loadChats()
         listenForNewChats()
-        listenForReadChanges()
     }
     // Cuando entramos en un chat
     override func viewWillAppear(_ animated: Bool) {
@@ -167,35 +122,46 @@ class ChatViewController: MessagesViewController {
     // Personalizar la barra de mensaje
     private func configureMessageInputBar(){
         
+        messageInputBar.isHidden = channel.adminId != User.currentId
+        
         messageInputBar.delegate = self
-        // Item en el boton de escribir de un chat
+        
         let attachButton = InputBarButtonItem()
-        // imagen del item
         attachButton.image = UIImage(systemName: "plus", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30))
-        // Tamaño
+        
         attachButton.setSize(CGSize(width: 30, height: 30), animated: false)
-        // Accion al boton
-        attachButton.onTouchUpInside{ item in
-            //print("Se ha pulsado el attach button")
+        
+        attachButton.onTouchUpInside {
+            item in
+            
             self.actionAttachMessage()
         }
         
-        // Boton para mandar audios
         micButton.image = UIImage(systemName: "mic.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30))
         micButton.setSize(CGSize(width: 30, height: 30), animated: false)
         
-        // Añadir funcionalidad
         micButton.addGestureRecognizer(longPressGesture)
         
         messageInputBar.setStackViewItems([attachButton], forStack: .left, animated: false)
+        
         messageInputBar.setLeftStackViewWidthConstant(to: 36, animated: false)
         
-        updateMicButton(show: true)
+        updateMicButtonStatus(show: true)
         
-        // Para el usuario no pueda copiar una imagen y lo ponga en el texto
         messageInputBar.inputTextView.isImagePasteEnabled = false
         messageInputBar.backgroundView.backgroundColor = .systemBackground
         messageInputBar.inputTextView.backgroundColor = .systemBackground
+    }
+    
+    func updateMicButtonStatus(show: Bool) {
+        
+        if show {
+            messageInputBar.setStackViewItems([micButton], forStack: .right, animated: false)
+            messageInputBar.setRightStackViewWidthConstant(to: 30, animated: false)
+        } else {
+            messageInputBar.setStackViewItems([messageInputBar.sendButton], forStack: .right, animated: false)
+            messageInputBar.setRightStackViewWidthConstant(to: 55, animated: false)
+        }
     }
     
     private func configureLeftBarButton(){
@@ -218,14 +184,7 @@ class ChatViewController: MessagesViewController {
     
     private func configureCustomTitle(){
         
-        leftBarButton.addSubview(titleLabel)
-        leftBarButton.addSubview(subTitleLabel)
-        
-        let leftBarButtonItem = UIBarButtonItem(customView: leftBarButton)
-        
-        self.navigationItem.leftBarButtonItems?.append(leftBarButtonItem)
-        
-        titleLabel.text = recipientName
+        self.title = channel.name
     }
     
     //MARK: - Carga de chats
@@ -255,6 +214,7 @@ class ChatViewController: MessagesViewController {
                 
                 // Actualizamos
             case .update(_, _, let insertions, _):
+                
                 for index in insertions{
                     //print("Mensaje, \(self.allMessages[index].message)")
                     // Actualizar el view para ver los nuevos mensajes enviados
@@ -269,7 +229,7 @@ class ChatViewController: MessagesViewController {
     }
     
     private func listenForNewChats(){
-        FirebaseMessageListener.shared.listenForNewChats(User.currentId, collectionId: chatId, lastMessageDate: lastMessageDate())
+        FirebaseMessageListener.shared.listenForNewChats(chatId, collectionId: chatId, lastMessageDate: lastMessageDate())
     }
     
     //MARK: - Cargar chats antiguos
@@ -281,22 +241,6 @@ class ChatViewController: MessagesViewController {
     }
     
     //MARK: - Insertar mensajes
-    private func listenForReadChanges(){
-        
-        FirebaseMessageListener.shared.listenForReadChanges(User.currentId, collectionId: chatId) { updateMessage in
-            //print("Mensaje actualizado!!!!!!!!", updateMessage.message)
-            //print("Estado del mensaje actualizado!!!!!!!!", updateMessage.status)
-            
-            // Ver si el mensaje esta leido y luego actualizamos
-            if updateMessage.status != kSENT{
-                
-                self.updateMessage(updateMessage)
-            }
-            
-        }
-    }
-    
-    
     // Coger todos los mensajes locales y por cada convertirlos en mkMessage
     private func insertMessages() {
         
@@ -321,12 +265,6 @@ class ChatViewController: MessagesViewController {
     // Divide las tareas
     private func insertMessage(_ message: Message){
         
-        // Si el usuario que lee el mensaje que no sea el current user podra dejar en leido
-        if message.senderId != User.currentId{
-            markMessageRead(message)
-        }
-        
-        //print("Mensaje insertado")
         let incoming = IncomingMessage(_collectionView: self)
         self.mkMessages.append(incoming.createMessage(message: message)!)
         displayMessagesCount += 1
@@ -355,21 +293,11 @@ class ChatViewController: MessagesViewController {
         displayMessagesCount += 1
     }
     
-    private func markMessageRead(_ message: Message){
-        
-        // Si quien envia el mensaje no es el usuario actual
-        if message.senderId != User.currentId && message.status != kREAD {
-            //
-            FirebaseMessageListener.shared.updateMessageFB(message, memberIds: [User.currentId, recipientId])
-        }
-    }
-    
     //MARK: - Actions
-    
     // Funcion para lo que el usuario puede mandar
     func messageSend(text: String?, photo: UIImage?, video: Video?, audio: String?, location: String?, audioDuration: Float = 0.0) {
-       
-        OutgoingMessage.send(chatId: chatId, text: text, photo: photo, video: video, audio: audio, audioDuration: audioDuration, location: location, memberIds: [User.currentId, recipientId])
+        
+        OutgoingMessage.sendChannel(channel: channel, text: text, photo: photo, video: video, audio: audio, audioDuration: audioDuration, location: location)
     }
     
     @objc func backButtonPressed() {
@@ -427,44 +355,6 @@ class ChatViewController: MessagesViewController {
         self.present(optionMenu, animated: true, completion: nil)
     }
     
-    //MARK: - Typing Indicador
-    func createTypingObserver(){
-        
-        // Estara atento a cambios para poder subirlos a firebase con respecto a la parte de escribiendo
-        FirebaseTypingListener.shared.createTypingObserver(chatRoomId: chatId) { isTyping in
-            DispatchQueue.main.async {
-                self.updateTyping(isTyping)
-            }
-        }
-    }
-    
-    func typingIndicatorUpdate(){
-        typingCounter += 1
-        
-        // Guardar info en firebase de cuando el usuario esta escribiendo
-        FirebaseTypingListener.saveTypingCounter(typing: true, chatRoomId: chatId)
-        
-        // Parar el escribiendo despues de un rato cuando el usuario no esta escribiendo
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5){
-            // Parar de escribir
-            self.typingCounterStop()
-        }
-    }
-    
-    // Funcion para cuando el usuario para de escribir
-    func typingCounterStop(){
-        typingCounter -= 1
-        if typingCounter == 0 {
-            FirebaseTypingListener.saveTypingCounter(typing: false, chatRoomId: chatId)
-        }
-    }
-    
-    // Mostrar cuando el usuario esta escribiendo
-    func updateTyping(_ show: Bool){
-        
-        subTitleLabel.text = show ? "Typing..." : ""
-    }
-    
     // Delegado para el scroll de Swipe down to see more
     //MARK: - Scroll Delegados
     override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
@@ -482,35 +372,10 @@ class ChatViewController: MessagesViewController {
         }
     }
     
-    //MARK: - Actualizar estado de leido del mensaje
-    // Esto cogera el mensaje...
-    private func updateMessage(_ message: Message){
-        //Enonctrara el mensaje
-        for index in 0 ..< mkMessages.count{
-            // Cogera cada mensaje
-            let tempMessage = mkMessages[index]
-            // Ver el mensaje que corresponde
-            if message.id == tempMessage.messageId {
-                // Acceder a mkmessages y le dara el status y el tiempo
-                mkMessages[index].status = message.status
-                mkMessages[index].readDate = message.readDate
-                // Lo guardaremos en realm para asi volver a actualizar y guardar su valor
-                RealmManager.shared.saveRealm(message)
-        
-                if mkMessages[index].status == kREAD {
-                    // Actualizamos en el view
-                    self.messagesCollectionView.reloadData()
-                }
-            }
-            
-        }
-    }
-    
     //MARK: - Helpers
     
     // Cuando el usuario salga del chat quitamos listeners de typing y mensajes
     private func removeListeners(){
-        FirebaseTypingListener.shared.removeTypingListener()
         FirebaseMessageListener.shared.removeListener()
     }
     
@@ -570,34 +435,32 @@ class ChatViewController: MessagesViewController {
 }
 
 // Delegado del Gallery
-extension ChatViewController: GalleryControllerDelegate {
+extension ChannelChatViewController : GalleryControllerDelegate {
     
     func galleryController(_ controller: GalleryController, didSelectImages images: [Image]) {
-        // Si hay mas de una imagen seleccionada
+        
         if images.count > 0 {
-            images.first!.resolve { image in
+            images.first!.resolve { (image) in
+                
                 self.messageSend(text: nil, photo: image, video: nil, audio: nil, location: nil)
             }
         }
+        
         controller.dismiss(animated: true, completion: nil)
     }
     
     func galleryController(_ controller: GalleryController, didSelectVideo video: Video) {
-        //print("Video seleccionado")
+        
         self.messageSend(text: nil, photo: nil, video: video, audio: nil, location: nil)
         controller.dismiss(animated: true, completion: nil)
     }
     
     func galleryController(_ controller: GalleryController, requestLightbox images: [Image]) {
-        
         controller.dismiss(animated: true, completion: nil)
     }
     
     func galleryControllerDidCancel(_ controller: GalleryController) {
-        
         controller.dismiss(animated: true, completion: nil)
     }
-    
-    
 }
 

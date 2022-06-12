@@ -4,8 +4,8 @@
 //
 //  Created by Dusa, Maria Paula on 28/5/22.
 //
-//  Lo relacionado con los usuarios en firebase y guardado en local.
-//
+
+/// Conexion con Firebase que se encargara de los usuarios.
 
 import Foundation
 import Firebase
