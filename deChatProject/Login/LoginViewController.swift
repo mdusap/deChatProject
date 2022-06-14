@@ -51,7 +51,7 @@ class LoginViewController: UIViewController {
     // Si se ha pulsado del boton de login
     @IBAction func loginButtonPressed(_ sender: Any) {
         
-        if isDataInputedFor(type: isLogin ? "login" : "register") {
+        if isEmpty(type: isLogin ? "login" : "register") {
             isLogin ? loginUser() : registerUser()
         } else {
             ProgressHUD.showFailed("Fill all fields please.")
@@ -61,8 +61,8 @@ class LoginViewController: UIViewController {
     // Si se ha pulsado que se ha olvidado contraseña
     @IBAction func forgotPasswordButtonPressed(_ sender: Any) {
         
-        if isDataInputedFor(type: "password") {
-            resetPassword()
+        if isEmpty(type: "password") {
+            resetPass()
         } else {
             ProgressHUD.showFailed("Email is required.")
         }
@@ -71,8 +71,8 @@ class LoginViewController: UIViewController {
     // Si se ha pulsado para volver a enviar un email de verificacion
     @IBAction func resendEmailButtonPressed(_ sender: Any) {
         
-            if isDataInputedFor(type: "password") {
-                resendVerificationEmail()
+            if isEmpty(type: "password") {
+                resendEmail()
             } else {
                 ProgressHUD.showFailed("Email is required.")
             }
@@ -142,7 +142,7 @@ class LoginViewController: UIViewController {
     
     //MARK: - Helpers
     // Devolver los valores si no estan vacios
-    private func isDataInputedFor(type: String) -> Bool {
+    private func isEmpty(type: String) -> Bool {
         
         switch type {
         case "login":
@@ -157,20 +157,24 @@ class LoginViewController: UIViewController {
     
     // Log In
     private func loginUser() {
+        // Acceder funcion de login con firebase
         FirebaseUserListener.shared.loginUserWithEmail(email: emailTextField.text!, password: passwordTextField.text!) { (error, isEmailVerified) in
-            
+            // Si el error es nil
             if error == nil {
+                // Si el email esta verificado
                 if isEmailVerified {
-                    
+                    // Va a la pantalla principal
                     self.goToApp()
+                    // Si no esta verificada mostrara mensaje
                 } else {
                     ProgressHUD.showFailed("Please verify email.")
+                    // De momento el boton de "Resend Email" se queda oculto
                     self.resendEmailButtonOutlet.isHidden = false
                 }
+            // Muestra el mensaje con el error
             } else {
                 ProgressHUD.showFailed(error!.localizedDescription)
             }
-            
         }
     }
 
@@ -195,7 +199,7 @@ class LoginViewController: UIViewController {
     }
     
     // Resetear contraseña
-    private func resetPassword() {
+    private func resetPass() {
         FirebaseUserListener.shared.resetPasswordFor(email: emailTextField.text!) { (error) in
             
             if error == nil {
@@ -206,7 +210,7 @@ class LoginViewController: UIViewController {
         }
     }
     // Volver a enviar email de verificacion
-    private func resendVerificationEmail() {
+    private func resendEmail() {
         FirebaseUserListener.shared.resendVerificationEmail(email: emailTextField.text!) { (error) in
             
             if error == nil {

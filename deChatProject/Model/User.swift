@@ -66,7 +66,7 @@ func saveUserLocally(_ user: User) {
 }
 
 //MARK: - USUARIOS PREDEFINIDOS
-func createDummyUsers() {
+func preUsers() {
     print("Usuarios de ejemplo")
     
     let names = ["Micio", "Oreo", "Emilia", "Oscar"]

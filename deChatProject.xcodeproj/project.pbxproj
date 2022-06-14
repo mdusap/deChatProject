@@ -651,6 +651,8 @@
 			dependencies = (
 			);
 			name = deChatProject;
+			packageProductDependencies = (
+			);
 			productName = deChatProject;
 			productReference = 3570BA192842698200F91FA8 /* deChatProject.app */;
 			productType = "com.apple.product-type.application";
@@ -679,6 +681,8 @@
 				Base,
 			);
 			mainGroup = 3570BA102842698200F91FA8;
+			packageReferences = (
+			);
 			productRefGroup = 3570BA1A2842698200F91FA8 /* Products */;
 			projectDirPath = "";
 			projectReferences = (

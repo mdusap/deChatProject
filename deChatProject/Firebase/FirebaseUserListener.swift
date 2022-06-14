@@ -39,23 +39,26 @@ class FirebaseUserListener {
     
     //MARK: - Registrar
     func registerUserWith(email: String, password: String, completion: @escaping (_ error: Error?) -> Void) {
-        
+        // Se accede con el Auth de Firebase
         Auth.auth().createUser(withEmail: email, password: password) { (authDataResult, error) in
             
             completion(error)
             
+            // Si el error es nil
             if error == nil {
                 
                 authDataResult!.user.sendEmailVerification { (error) in
                     print("Error en Email Auth, descr: ", error?.localizedDescription)
                 }
                 
-                // Crear usuario y gaurdarlo tanto en firebase como localmente
+                // Si los datos de auth no es nil
                 if authDataResult?.user != nil {
-                    
+                    // Se crea el usuario con un estado por defecto
                     let user = User(id: authDataResult!.user.uid, username: email, email: email, pushId: "", avatarLink: "", status: "Hi! I´m new here!")
                     
+                    // Guardado local
                     saveUserLocally(user)
+                    // Guardado en Firebase
                     self.saveUserToFireStore(user)
                 }
             }
@@ -98,7 +101,7 @@ class FirebaseUserListener {
         
     }
     
-    //MARK: - Guardar usuarios
+    //MARK: - SetUser
     func saveUserToFireStore(_ user: User) {
         
         do {
@@ -139,20 +142,20 @@ class FirebaseUserListener {
     // Parte de recoger usuarios guardados en firebase
     
     func downloadAllUsersFromFirebase(completion: @escaping (_ allUsers: [User]) -> Void ) {
-        
+        // Array con los usuarios
         var users: [User] = []
-        
+        // Se accede a la coleccion creada en Firebase
         FirebaseReference(.User).limit(to: 500).getDocuments { (querySnapshot, error) in
-            
+            // Si no existen datos
             guard let document = querySnapshot?.documents else {
                 print("No hay documento para los usuarios")
                 return
             }
-            
+            // Variable en la que se guarda el array con todos los usuarios de Firebase
             let allUsers = document.compactMap { (queryDocumentSnapshot) -> User? in
                 return try? queryDocumentSnapshot.data(as: User.self)
             }
-            
+            // Foreach para recorrer todos los usuarios que tenga y añadirlos al array de users
             for user in allUsers {
                 
                 if User.currentId != user.id {

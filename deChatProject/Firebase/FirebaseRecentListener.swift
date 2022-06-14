@@ -21,14 +21,14 @@ class FirebaseRecentListener {
     //MARK: - Chats recientes
     func recentChatFirestore(completion: @escaping(_ allRecents: [RecentChat]) -> Void){
         FirebaseReference(.Recent).whereField(kSENDERID, isEqualTo: User.currentId).addSnapshotListener{ (querySnapshot, error) in
-            
+            // Guardo chats en un array
             var recentChats: [RecentChat] = []
-            
+            // Si no hay chats pues no hara nada
             guard let documents = querySnapshot?.documents else {
                 print("No hay documentos de chats recientes")
                 return
             }
-            
+            // Array que no devolvera nil con todos los chats recientes o no de firebase
             let allRecents = documents.compactMap { queryDocumentSnapshot -> RecentChat? in
                 // decodificar chats desde firebase
                 return try? queryDocumentSnapshot.data(as: RecentChat.self)

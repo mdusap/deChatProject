@@ -59,19 +59,20 @@ class FirebaseChannelListener {
     }
     
     func downloadAllChannels(completion: @escaping (_ allChannels: [Channel]) ->Void) {
-        
+        // Accede a la coleccion creada en firebase que guarda los canales
         FirebaseReference(.Channel).getDocuments { querySnapshot, error in
-            
+            // Si no hay documentos no hara nada
             guard let documents = querySnapshot?.documents else {
                 print("No hay documentos para todos los canales")
                 return
             }
-            
+            // se guardan todos los canale en un array con vars de valor no nil
             var allChannels = documents.compactMap { queryDocumentSnapshot -> Channel? in
                 return try? queryDocumentSnapshot.data(as: Channel.self)
             }
-            
+            // Muestra todos los canales a los que el usuario no le pertenece el id
             allChannels = self.removeSubscribedChannels(allChannels)
+            // Se ordenan los canales
             allChannels.sort(by: { $0.memberIds.count > $1.memberIds.count })
             completion(allChannels)
         }

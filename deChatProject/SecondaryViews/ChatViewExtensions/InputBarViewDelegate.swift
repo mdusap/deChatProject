@@ -14,11 +14,11 @@ import InputBarAccessoryView
 extension ChatViewController: InputBarAccessoryViewDelegate{
     
     func inputBar(_ inputBar: InputBarAccessoryView, textViewTextDidChangeTo text: String) {
-        // Ver cuando el texto esta cambiando
+        // Si en el text fiel el texto no esta vacio el usuario esta escribiendo
         if text != "" {
             //print("Escribiendo...")
             typingIndicatorUpdate()
-        }
+        } // No pongo else que en la otra funcion ya para despues de un segundo si no esta escribiendo.
         // Actualizar boton para enviar audio, si no hay texto mostrar send si no hay text mostrar microfono
         updateMicButton(show: text == "")
         

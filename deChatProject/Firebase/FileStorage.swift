@@ -253,7 +253,6 @@ class FileStorage{
     class func saveFileLocally(fileData: NSData, fileName: String){
         
         let docUrl = getDocumentsURL().appendingPathComponent(fileName, isDirectory: false)
-        // Means whenever thers a file in directory its override it 
         fileData.write(to: docUrl, atomically: true)
     }
 }

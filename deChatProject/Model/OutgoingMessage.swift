@@ -189,10 +189,10 @@ func sendVideo(message: Message, video:Video, memberIds:[String], channel: Chann
         
         if let tempPath = videoUrl{
             // Cogera la primera imagen del video que se podra pulsar con el dedo para ver el contenido 
-            let play = playVideo(video: tempPath)
+            let iVideo = imageVideo(video: tempPath)
             
-            FileStorage.saveFileLocally(fileData: play.jpegData(compressionQuality: 0.7)! as NSData, fileName: fileName)
-            FileStorage.uploadImage(play, directory: playImageDirectory) { imageLink in
+            FileStorage.saveFileLocally(fileData: iVideo.jpegData(compressionQuality: 0.7)! as NSData, fileName: fileName)
+            FileStorage.uploadImage(iVideo, directory: playImageDirectory) { imageLink in
                 
                 if imageLink != nil{
                     // Convertira lo que tengamos en tempPath como datos

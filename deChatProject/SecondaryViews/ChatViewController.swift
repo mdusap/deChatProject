@@ -439,12 +439,13 @@ class ChatViewController: MessagesViewController {
     }
     
     func typingIndicatorUpdate(){
+        // Contador del Typing
         typingCounter += 1
         
-        // Guardar info en firebase de cuando el usuario esta escribiendo
+        // Guardar el valor en firebase de cuando el usuario este escribiendo
         FirebaseTypingListener.saveTypingCounter(typing: true, chatRoomId: chatId)
         
-        // Parar el escribiendo despues de un rato cuando el usuario no esta escribiendo
+        // Parar parar el Escribiendo... despues de un rato cuando el usuario ya no este escribiendo
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5){
             // Parar de escribir
             self.typingCounterStop()
@@ -459,7 +460,7 @@ class ChatViewController: MessagesViewController {
         }
     }
     
-    // Mostrar cuando el usuario esta escribiendo
+    // Mostrar en el label debajo del nombre del usuario cuando el usuario este escribiendo
     func updateTyping(_ show: Bool){
         
         subTitleLabel.text = show ? "Typing..." : ""

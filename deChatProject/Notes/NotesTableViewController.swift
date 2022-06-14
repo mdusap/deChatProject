@@ -118,33 +118,38 @@ extension NotesTableViewController {
     
     // Si se ha pulsado sobre una nota ya escrita se podra editar la nota ...
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        //Segun item seleccionado se guarda en una variable
         let itemSelected = items[indexPath.row]
-        
+        // Se muestra un mensaje al usuario con lo que puede hacer
         let alert = UIAlertController(title:"Edit Operation",
                                       message: "Edit this note!",
                                       preferredStyle: .alert)
         
+        // Las opciones que tendra
         alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
-        
         alert.addAction(UIAlertAction(title: "Update", style: .default, handler: { [weak self] (_) in
             
+            // Si se quita el texto al editar la nota se queda en vacio
             let updatedItem = self?.textForUpdate?.text!
             self?.items[indexPath.row] = updatedItem ?? ""
             
+            // Parte que actualiza la tabla con la nueva informacion
             DispatchQueue.main.async {
-                
+                // Las notas que ya hay
                 var currentItems = UserDefaults.standard.stringArray(forKey: "items") ?? []
+                // Para borrar una nota
                 currentItems.remove(at: indexPath.row)
+                // Añade la nota editada
                 currentItems.append(updatedItem!)
+                // La gurada en UserDefaults
                 UserDefaults.standard.setValue(currentItems, forKey: "items")
-                
-                
+                // Se actualiza la tabla
                 self?.table.reloadData()
             }
             
         }))
         
+        // Añade el texto
         alert.addTextField{ (textfield) in
             
             self.textForUpdate = textfield
